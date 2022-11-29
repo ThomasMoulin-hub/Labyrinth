@@ -1,6 +1,10 @@
-public interface Distance {
+import java.util.HashMap;
 
-    int minDistance(Vertex vertex); // Donne la distance entre vertex et le sommet de départ
-    int distance(Vertex vertex1, Vertex vertex2); // Donne la distance entre deux sommets
+public class Distance extends HashMap<VertexInterface,Integer> implements DistanceInterface{
+    public Distance(){super();}
 
+    public int minDistance(VertexInterface vertex){
+        retunr this
+
+    }
 }
