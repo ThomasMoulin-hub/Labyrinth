@@ -4,11 +4,11 @@ import java.util.Set;
 
 public class Dijkstra {
     public HashMap<VertexInterface,VertexInterface> dijkstra(GraphInterface graph, VertexInterface startVertex, VertexInterface endVertex){
-        Set<VertexInterface> processedVextexes = new HashSet();
+        Set<VertexInterface> processedVextexes = new HashSet<>();
         processedVextexes.add(startVertex);
         VertexInterface pivotVertex = startVertex;
-        HashMap<VertexInterface,Integer> minDistance = new HashMap();
-        HashMap<VertexInterface,VertexInterface> shortestPaths = new HashMap();
+        HashMap<VertexInterface,Integer> minDistance = new HashMap<>();
+        HashMap<VertexInterface,VertexInterface> shortestPaths = new HashMap<>();
 
         minDistance.put(startVertex,0);
 
