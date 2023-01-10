@@ -1,16 +1,21 @@
-import java.security.spec.ECField;
 import java.util.ArrayList;
 
 public class Maze implements GraphInterface {
 
-    private MazeBox[][] labyrithe;
+    private MazeBox[][] labyrinthe;
     private int nbligne;
     private int nbcolone;
 
-    public Maze(MazeBox[][] labyrithe) {
-        this.labyrithe = labyrithe;
-        this.nbligne = labyrithe.length;
-        this.nbcolone = labyrithe[0].length;
+    public Maze(char[][] labyrintheBluePrints) {
+        labyrinthe = new MazeBox[labyrintheBluePrints.length][labyrintheBluePrints[0].length];
+        this.nbligne = labyrinthe.length;
+        this.nbcolone = labyrinthe[0].length;
+        for(int i = 0; i<nbligne; i++){
+            for(int j = 0; j<nbcolone; j++){
+                labyrinthe[i][j] = new MazeBox(i,j,labyrintheBluePrints[i][j]);
+            }
+        }
+
     }
 
 
@@ -18,7 +23,7 @@ public class Maze implements GraphInterface {
         ArrayList<VertexInterface> listeVertex = new ArrayList<>();
         for (int i = 0; i < nbligne; i++) {
             for (int j = 0; j < nbcolone; j++) {
-                listeVertex.add(labyrithe[i][j]);
+                listeVertex.add(labyrinthe[i][j]);
             }
         }
         return listeVertex;
@@ -29,17 +34,17 @@ public class Maze implements GraphInterface {
         int x = noeud.getPosition().get(0);
         int y = noeud.getPosition().get(1);
         ArrayList<VertexInterface> liste_voisin = new ArrayList<>();
-        try{liste_voisin.add(labyrithe[x+1][y]);}
+        try{if(labyrinthe[x+1][y].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x+1][y]);}}
         catch (Exception e){}
-        try{liste_voisin.add(labyrithe[x][y+1]);}
+        try{if(labyrinthe[x][y+1].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x][y+1]);}}
         catch (Exception e){}
-        try{liste_voisin.add(labyrithe[x+1][y-1]);}
+        try{if(labyrinthe[x+1][y-1].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x+1][y-1]);}}
         catch (Exception e){}
-        try{liste_voisin.add(labyrithe[x][y-1]);}
+        try{if(labyrinthe[x][y-1].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x][y-1]);}}
         catch (Exception e){}
-        try{liste_voisin.add(labyrithe[x-1][y-1]);}
+        try{if(labyrinthe[x-1][y-1].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x-1][y-1]);}}
         catch (Exception e){}
-        try{liste_voisin.add(labyrithe[x-1][y]);}
+        try{if(labyrinthe[x-1][y].getBoxType() == 'E'){liste_voisin.add(labyrinthe[x-1][y]);}}
         catch (Exception e){}
 
         return liste_voisin;

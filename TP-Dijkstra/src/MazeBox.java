@@ -3,10 +3,16 @@ import java.util.ArrayList;
 public class MazeBox implements VertexInterface{
     private int x;
     private int y;
+    private char boxType; // Deux types de bow E pour emptybox et W pour wallbox
 
-    public MazeBox(int x, int y){
+    public MazeBox(int x, int y, char boxType){
         this.x = x;
         this.y = y;
+        this.boxType = boxType;
+    }
+
+    public char getBoxType(){
+        return this.boxType;
     }
 
 
