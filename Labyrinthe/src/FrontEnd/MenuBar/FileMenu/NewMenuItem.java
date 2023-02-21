@@ -12,7 +12,7 @@ public class NewMenuItem extends JMenuItem {
         this.mainFrame = mainFrame;
         setAction(new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {mainFrame.getModel().doIfNothingModified("setNewMaze");}
+            public void actionPerformed(ActionEvent e) {mainFrame.getModel().newMaze();}
         });
         setText("Nouveau labyrinthe");
     }

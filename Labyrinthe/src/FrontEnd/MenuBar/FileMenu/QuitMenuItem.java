@@ -15,7 +15,7 @@ public class QuitMenuItem extends JMenuItem {
          setAction(new AbstractAction() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 mainFrame.getModel().doIfNothingModified("quitApp");
+                 mainFrame.getModel().quit();
              }
          });
          setText("Quitter");
