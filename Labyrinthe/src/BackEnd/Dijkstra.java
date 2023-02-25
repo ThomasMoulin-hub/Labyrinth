@@ -1,11 +1,12 @@
 package BackEnd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Dijkstra {
-    public HashMap<VertexInterface,VertexInterface> dijkstra(GraphInterface graph, VertexInterface startVertex, VertexInterface endVertex){
+    public ArrayList<VertexInterface> dijkstra(GraphInterface graph, VertexInterface startVertex, VertexInterface endVertex){
         Set<VertexInterface> processedVextexes = new HashSet<>();
         processedVextexes.add(startVertex);
         VertexInterface pivotVertex = startVertex;
@@ -35,7 +36,6 @@ public class Dijkstra {
 
             int min = Integer.MAX_VALUE;
             VertexInterface nextpivot = null;
-
             for(VertexInterface noeud : graph.getAllVertexes()){
                 if(!processedVextexes.contains(noeud) && minDistance.get(noeud)<min){
                     min = minDistance.get(noeud);
@@ -44,9 +44,15 @@ public class Dijkstra {
             }
             pivotVertex = nextpivot;
             processedVextexes.add(pivotVertex);
+
         }
-
-
-        return shortestPaths;
+        VertexInterface vertex = endVertex;
+        ArrayList<VertexInterface> res = new ArrayList<>();
+        while(shortestPaths.get(vertex) != null){
+            vertex = shortestPaths.get(vertex);
+            res.add(vertex);
+        }
+        res.remove(startVertex);
+        return res;
     }
 }

@@ -2,12 +2,14 @@ package FrontEnd;
 
 import BackEnd.Model;
 import FrontEnd.MenuBar.MenuBar;
-import FrontEnd.WindowPanel.WindowPanel;
+import FrontEnd.WindowPanels.WindowPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame implements ChangeListener {
 
@@ -18,7 +20,14 @@ public class MainFrame extends JFrame implements ChangeListener {
     public MainFrame(){
         super("Labyrinthe");
         setJMenuBar(menuBar = new MenuBar(this));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                model.quit();
+
+            }
+        });
         model.addObserver(this);
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
         setMinimumSize(new Dimension((int) screensize.getWidth()/3,(int) (3*screensize.getHeight()/4)));
