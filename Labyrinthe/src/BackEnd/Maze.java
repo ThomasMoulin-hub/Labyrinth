@@ -55,9 +55,9 @@ public class Maze implements GraphInterface {
 
     }
 
-    public Maze(){
+    public Maze(int tailleX,int tailleY){
         //constucteur qui quand on appelle Maze avec rien construit un labyrinthe avec que des cases EmptyBox
-        labyrinthe = new MazeBox[10][10];
+        labyrinthe = new MazeBox[tailleX][tailleY];
         this.nbligne = labyrinthe.length;
         this.nbcolone = labyrinthe[0].length;
         for(int i = 0; i<nbligne; i++){
@@ -109,8 +109,6 @@ public class Maze implements GraphInterface {
 
 
     public ArrayList<VertexInterface> getNeighbour(VertexInterface noeud) {
-        //TODO Refaire cette fonction et changer les == 'E' par !isWallBox
-        //TODO faire la différence entre les lignes paires et impaire parce que c'est pas les memes indices pour les voisins
         int x = noeud.getPosition().get(0);
         int y = noeud.getPosition().get(1);
         ArrayList<VertexInterface> liste_voisin = new ArrayList<>();

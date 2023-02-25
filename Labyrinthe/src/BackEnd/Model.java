@@ -9,7 +9,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +23,7 @@ public class Model {
             = new ArrayList<ChangeListener>();
     private char boxTypeSelected;
     private Color colorSelected;
-    private File fichierOuvert; //TODO pour garder le nom du fichier quand on change le maze ou qu'on change le nom du fichier pour pouvoir renomer quand on change de nom sur un meme maze
+    private File fichierOuvert;
     private boolean isShortestPathOnScreen = false;
     private ArrayList<VertexInterface> shortestPathList;
     private boolean mazeHasName = true;
@@ -72,19 +72,26 @@ public class Model {
 
 
     public void quit(){
-        if(graphModified){save();}
+        if(graphModified){askIfWantToSave();}
         mainFrame.dispose();
     }
 
     public void newMaze(){
         if(graphModified){
-            if(save().equals("cancel")){
-                return; //si save retourne cancel on abandonne l'action de créer un nouveau maze
+            if(askIfWantToSave().equals("cancel")){
+                return; //si retourne cancel on abandonne l'action de créer un nouveau maze
             }
 
         }
-        this.maze = new Maze();
+        JTextField longueurVerticale = new JTextField();
+        JTextField longueurHorizontale = new JTextField();
+        Object[] options = {"Longueur verticale :",longueurVerticale,"Longueur horizontale :",longueurHorizontale};
+        if(JOptionPane.showConfirmDialog(mainFrame,options,"Taille du labyrinthe",JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION){
+            return;
+        }
+        this.maze = new Maze(Integer.valueOf(longueurVerticale.getText()),Integer.valueOf(longueurHorizontale.getText()));
         mazeHasName = false;
+        graphModified = false;
         stateChanged();
     }
 
@@ -133,36 +140,91 @@ public class Model {
         stateChanged();
     }
 
-    public String save(){
-
-        Object[] option = {"Oui", "Non"};
-        int result = JOptionPane.showOptionDialog(mainFrame, "Voulez-vous sauvegarder ?","N'oubliez-pas de sauvegarder",JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE,null,option,option[0]);
-        switch(result) {
-            case 0:
-                if (!mazeHasName) {
-                    String nom = "";
-                    boolean reussi = false;
-                    while (nom.length() == 0 | !reussi) {
-                        nom = (String) JOptionPane.showInputDialog(mainFrame, "Nom du labyrinthe :", "Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, null, null);
-                        nom += ".txt";
-                        try {
-                            File newfile = new File("src\\Sauvegardes\\" + nom);
-                            reussi = newfile.createNewFile();
-                        }catch(IOException e){JOptionPane.showMessageDialog(mainFrame,e.getMessage());}
-                    }
-                    mazeHasName = true;
-                }else{
-                    fichierOuvert.renameTo(new File(fichierOuvert.getParent()+"\\"+maze.getName()));
+    public String askFileName(){
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File("src/Sauvegardes"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Nom du labyrinthe (.txt)","txt");
+        chooser.setFileFilter(filter);
+        int result = chooser.showSaveDialog(mainFrame);
+        switch(result){
+            case JFileChooser.APPROVE_OPTION:
+                String path = chooser.getSelectedFile().getAbsolutePath();
+                if(!path.contains(".txt")){
+                    path += ".txt";
                 }
-                //TODO écrire le maze dans le fichier
-                return "";
-            case -1:
-                return "cancel";
+                return path;
             default:
-                return"";
+                return "cancel";
         }
 
     }
+
+    public void enregistrerSous(){
+        boolean done = false;
+        while(!done){
+            try{
+                String value = askFileName();
+                switch(value){
+                    case "cancel":
+                        return;
+                    default:
+                        save(new File(value));
+                        done = true;
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(mainFrame,"Le nom du fichier n'est pas valide ! " + e.toString());
+            }
+
+        }
+
+    }
+
+    public void enregistrer(){
+        if(!mazeHasName){
+            enregistrerSous();
+        }else{
+            try{
+                save(fichierOuvert);
+            }catch(Exception e){
+                //rien car si le fichier a été ouvert on considère que son nom est valide
+            }
+
+        }
+    }
+
+    public void save(File file) throws Exception{
+        if(fichierOuvert == null){
+            file.createNewFile();
+            fichierOuvert = file;
+        }else{
+            fichierOuvert.renameTo(new File(fichierOuvert.getParent()+maze.getName()));
+        }
+        PrintWriter writer = new PrintWriter(fichierOuvert);
+        MazeBox[][] boxes = maze.getLabyrinthe();
+        for(MazeBox[] ligne : boxes){
+            String chaine = "";
+            for(MazeBox box : ligne){
+                chaine += box.getBoxType();
+            }
+            writer.println(chaine);
+        }
+        writer.close();
+    }
+
+    public String askIfWantToSave(){
+        Object[] possibilities = {"Oui","Non"};
+        switch(JOptionPane.showOptionDialog(mainFrame,"Voulez-vous sauvegarder ?","Savegarder",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null,possibilities,possibilities[0])){
+            case -1:
+                return "cancel";
+            case 0:
+                enregistrer();
+                return"";
+            case 1:
+                return"";
+        }
+        return"";
+    }
+
 
     public void plusCourtChemin() {
         try {
@@ -190,10 +252,10 @@ public class Model {
 
 
     public void open(){
-        mazeHasName = false;
+        mazeHasName = true;
         if(graphModified){
-            if(save().equals("cancel")){
-                return; //si save retourne cancel on abandonne l'action d'ouvrir un maze
+            if(askIfWantToSave().equals("cancel")){
+                return; //si retourne cancel on abandonne l'action d'ouvrir un maze
             }
         }
         boolean fichierCorrect = false;
@@ -201,12 +263,12 @@ public class Model {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Labyrinthe (.txt)","txt");
         chooser.setFileFilter(filter);
         chooser.setCurrentDirectory(new File("src/Sauvegardes"));
-        chooser.showOpenDialog(mainFrame);
-        File file = new File(chooser.getSelectedFile().toString());
-        setFichierOuvert(file);
+
         while(!fichierCorrect){
             try{
-
+                chooser.showOpenDialog(mainFrame);
+                File file = chooser.getSelectedFile();
+                setFichierOuvert(file);
                 ArrayList<String> labyrinthBluePrints = new ArrayList<>();
                 Scanner scanner = new Scanner(file);
 
@@ -220,11 +282,12 @@ public class Model {
                 fichierCorrect = true;
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(mainFrame,"Le fichier n'est pas valide ! " + e.getMessage());
-                    chooser.showOpenDialog(mainFrame);
-                    //TODO tester ce qu'il se passe si on fait cancel dans le choix du fichier
+
+                    //TODO tester ce qu'il se passe si on fait cancel dans le choix du fichier ou qu'on fait la croix
                 }
 
             }
+        graphModified = false;
         stateChanged();
     }
 }

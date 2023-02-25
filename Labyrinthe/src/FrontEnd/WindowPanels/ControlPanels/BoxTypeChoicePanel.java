@@ -10,7 +10,7 @@ public class BoxTypeChoicePanel extends JPanel {
     private MainFrame mainFrame;
     public BoxTypeChoicePanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
-        setLayout(new GridLayout(4,2));
+        setLayout(new GridLayout(2,4));
         Font font = new Font("Serif",Font.PLAIN,24);
         JButton boutonGris = new JButton();
         JButton boutonBleu = new JButton();
@@ -32,6 +32,7 @@ public class BoxTypeChoicePanel extends JPanel {
 
 
         boutonBleu.setBackground(Color.BLUE);
+
         boutonGris.setBackground(Color.GRAY);
         boutonRouge.setBackground(Color.RED);
         boutonVert.setBackground(Color.GREEN);
@@ -61,13 +62,15 @@ public class BoxTypeChoicePanel extends JPanel {
         });
 
 
-        add(boutonGris);
+
         add(labelGris);
-        add(boutonBleu);
         add(labelBleu);
-        add(boutonVert);
         add(labelVert);
-        add(boutonRouge);
         add(labelRouge);
+        add(boutonGris);
+        add(boutonBleu);
+        add(boutonVert);
+        add(boutonRouge);
+
     }
 }

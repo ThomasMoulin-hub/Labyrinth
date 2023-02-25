@@ -18,9 +18,9 @@ public class ControlPanel extends JPanel {
         boxChoicePanel = new BoxTypeChoicePanel(mainFrame);
         boutonsControlPanel = new BoutonsControlPanel(mainFrame);
         labyInfosPanel = new LabyInfosPanel(mainFrame);
-        add(boutonsControlPanel,BorderLayout.SOUTH);
+        add(boutonsControlPanel,BorderLayout.EAST);
         add(boxChoicePanel,BorderLayout.CENTER);
-        add(labyInfosPanel,BorderLayout.NORTH);
+        add(labyInfosPanel,BorderLayout.WEST);
     }
     public void notifyForUpdate(){
         labyInfosPanel.notifyForUpdate();

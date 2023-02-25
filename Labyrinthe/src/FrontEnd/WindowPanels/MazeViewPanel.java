@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class MazeViewPanel extends JPanel {//Todo mettre un mouse listener là
+public class MazeViewPanel extends JPanel {
     private MainFrame mainFrame;
 
     private ArrayList<Hexagon> liste_hex = new ArrayList<>();

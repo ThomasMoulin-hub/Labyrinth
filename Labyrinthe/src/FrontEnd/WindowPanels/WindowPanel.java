@@ -18,7 +18,7 @@ public class WindowPanel extends JPanel{
         mazeViewPanel = new MazeViewPanel(mainFrame);
 
         setLayout(new BorderLayout());
-        add(controlPanel,BorderLayout.WEST);
+        add(controlPanel,BorderLayout.SOUTH);
         add(mazeViewPanel,BorderLayout.CENTER);
 
     }

@@ -8,6 +8,7 @@ public class FileMenu extends JMenu {
     private final QuitMenuItem quitMenuItem;
     private final OpenMenuItem openMenuItem;
     private final SaveMenuItem saveMenuItem;
+    private final SaveAsMenuItem saveAsMenuItem;
 
     private final NewMenuItem newMenuItem;
 
@@ -17,6 +18,7 @@ public class FileMenu extends JMenu {
         add(newMenuItem = new NewMenuItem(mainFrame));
         add(openMenuItem = new OpenMenuItem(mainFrame));
         add(saveMenuItem = new SaveMenuItem(mainFrame));
+        add(saveAsMenuItem = new SaveAsMenuItem(mainFrame));
         add(quitMenuItem = new QuitMenuItem(mainFrame));
         openMenuItem.setName("Ouvrir");
 

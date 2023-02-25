@@ -9,8 +9,8 @@ public class PathBox extends MazeBox{
 
     @Override
     public char getBoxType() {
-        return 'P';
-    }
+        return 'E';
+    } //Retourne E car quand on sauvegarde le maze on compte cette box comme une EmptyBox
 
     @Override
     public Color getCouleur(){return Color.YELLOW;}

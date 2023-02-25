@@ -12,7 +12,7 @@ public class SaveMenuItem extends JMenuItem {
         super("Enregistrer");
         setAction(new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {mainFrame.getModel().save();}
+            public void actionPerformed(ActionEvent e) {mainFrame.getModel().enregistrer();}
         });
         this.mainFrame = mainFrame;
         setText("Enregistrer");
