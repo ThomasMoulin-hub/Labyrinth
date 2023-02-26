@@ -40,11 +40,11 @@ public class Model {
     }
 
     public void zoom(){
-        Hexagon.setR(Hexagon.getR() + 5);
+        Hexagon.setR(Hexagon.getR() * (1.1));
         stateChanged();
     }
     public void deZoom(){
-        Hexagon.setR(Hexagon.getR() -5);
+        Hexagon.setR(Hexagon.getR() * (0.9));
         stateChanged();
     }
     public void addObserver(ChangeListener listener) {
@@ -243,6 +243,9 @@ public class Model {
             writer.println(chaine);
         }
         writer.close();
+    }
+    public void retablir(){
+        //TODO faire le ctrl z
     }
 
     public String askIfWantToSave(){

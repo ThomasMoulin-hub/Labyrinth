@@ -68,8 +68,7 @@ public class MazeViewPanel extends JPanel {
     }
     @Override
     public void paintComponent(Graphics g){
-        //TODO adapter la taille des hexagons en fonction de la taille de l'écran
-        //TODO adapter la taille des hexagones en fonction du zoom
+
         super.paintComponent(g);
         for(Hexagon hex : liste_hex){
             g.setColor(hex.getCouleur());

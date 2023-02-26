@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class KeyBoardController extends KeyAdapter {
-    //TODO zoom Ctrl+Molette / Ctrl++ / Ctrl+-
+
     //TODO Ctrl+Z
     private MainFrame mainFrame;
     public KeyBoardController(MainFrame mainFrame){
@@ -29,6 +29,8 @@ public class KeyBoardController extends KeyAdapter {
             mainFrame.getModel().zoom();
         }else if(e.getKeyCode() == KeyEvent.VK_6 && e.isControlDown()){
             mainFrame.getModel().deZoom();
+        }else if(e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()){
+            mainFrame.getModel().retablir();
         }else if(e.isControlDown()){
             mainFrame.getModel().setIsControlDown(true);
         }
