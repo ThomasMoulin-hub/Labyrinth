@@ -7,9 +7,7 @@ import FrontEnd.WindowPanels.Hexagons.Hexagon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 
@@ -50,6 +48,18 @@ public class MazeViewPanel extends JPanel {
             }
         });
 
+        addMouseWheelListener(new MouseWheelListener() {
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                if(mainFrame.getModel().getIsControlDown()){
+                    if(e.getWheelRotation()>0){
+                        mainFrame.getModel().zoom();
+                    }else if(e.getWheelRotation() < 0){
+                        mainFrame.getModel().deZoom();
+                    }
+                }
+            }
+        });
         this.mainFrame = mainFrame;
         setFocusable(true);
         requestFocusInWindow();

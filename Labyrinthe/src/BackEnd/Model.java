@@ -17,7 +17,6 @@ import java.util.Scanner;
 
 public class Model {
     private boolean graphModified = false;
-
     private final MainFrame mainFrame;
     private Maze maze;
     private final List<ChangeListener> listeners
@@ -28,6 +27,7 @@ public class Model {
     private boolean isShortestPathOnScreen = false;
     private ArrayList<VertexInterface> shortestPathList;
     private boolean mazeHasName = true;
+    private boolean isControlDown = false;
 
 
 
@@ -54,7 +54,9 @@ public class Model {
         this.boxTypeSelected = type;
         this.colorSelected = couleur;
     }
+    public void setIsControlDown(boolean valueCtrl){this.isControlDown = valueCtrl;}
     public Color getColorSelected(){return this.colorSelected;}
+    public boolean getIsControlDown(){return isControlDown;}
     public void setMazeName(String name){
 
         graphModified = true;
