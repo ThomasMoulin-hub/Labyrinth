@@ -29,11 +29,12 @@ public class Model {
     private boolean mazeHasName = true;
 
 
-
+    //TODO on peut pas faire enregistrer quand y'a pas de labyrinthe
 
 
     public Model(MainFrame mainFrame){
         this.mainFrame = mainFrame;
+
 
     }
 
@@ -85,13 +86,24 @@ public class Model {
         }
         JTextField longueurVerticale = new JTextField();
         JTextField longueurHorizontale = new JTextField();
-        Object[] options = {"Longueur verticale :",longueurVerticale,"Longueur horizontale :",longueurHorizontale};
-        if(JOptionPane.showConfirmDialog(mainFrame,options,"Taille du labyrinthe",JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION){
-            return;
+        Object[] options = {"Hauteur :",longueurVerticale,"Largeur :",longueurHorizontale};
+        boolean resultIsInt = false;
+        while(!resultIsInt){
+
+            if(JOptionPane.showConfirmDialog(mainFrame,options,"Taille du labyrinthe (en nombre de cases)",JOptionPane.OK_CANCEL_OPTION) != JOptionPane.OK_OPTION){
+                return;
+            }
+            try{
+                this.maze = new Maze(Integer.valueOf(longueurVerticale.getText()),Integer.valueOf(longueurHorizontale.getText()));
+                resultIsInt= true;
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(mainFrame,"Veuillez entrer des chiffres !");
+            }
+
         }
-        this.maze = new Maze(Integer.valueOf(longueurVerticale.getText()),Integer.valueOf(longueurHorizontale.getText()));
         mazeHasName = false;
         graphModified = false;
+        isShortestPathOnScreen = false;
         stateChanged();
     }
 
@@ -103,6 +115,7 @@ public class Model {
                 int yP = pathBox.getPosition().get(1);
                 maze.getLabyrinthe()[xP][yP] = new EmptyBox(xP,yP);
             }
+            isShortestPathOnScreen = false;
         }
         switch(boxTypeSelected){
             case 'E':
@@ -160,6 +173,9 @@ public class Model {
     }
 
     public void enregistrerSous(){
+        if(maze == null){
+            return;
+        }
         boolean done = false;
         while(!done){
             try{
@@ -180,6 +196,9 @@ public class Model {
     }
 
     public void enregistrer(){
+        if(maze == null){
+            return;
+        }
         if(!mazeHasName){
             enregistrerSous();
         }else{
@@ -192,7 +211,7 @@ public class Model {
         }
     }
 
-    public void save(File file) throws Exception{
+    private void save(File file) throws Exception{
         if(fichierOuvert == null){
             file.createNewFile();
             fichierOuvert = file;
@@ -227,8 +246,12 @@ public class Model {
 
 
     public void plusCourtChemin() {
+
         try {
-            if (maze.getArrivalBox() == null) {
+            if(maze == null){
+                JOptionPane.showMessageDialog(mainFrame, "Il n'a pas de labyrinthe !");
+
+            } else if (maze.getArrivalBox() == null) {
                 JOptionPane.showMessageDialog(mainFrame, "Il manque l'arrivée !");
             } else if (maze.getDepartureBox() == null) {
                 JOptionPane.showMessageDialog(mainFrame, "Il manque le départ !");
@@ -236,23 +259,27 @@ public class Model {
                 Dijkstra dijkstra = new Dijkstra();
                 ArrayList<VertexInterface> listeVertexPlusCourtChemin = dijkstra.dijkstra(maze, maze.getDepartureBox(), maze.getArrivalBox());
                 setShortestPathList(listeVertexPlusCourtChemin);
+
+                if(listeVertexPlusCourtChemin.size() == 0){JOptionPane.showMessageDialog(mainFrame,"Le départ et l'arrviée sont adjacents !");}
                 for (VertexInterface boxPlusCourtChemin : listeVertexPlusCourtChemin) {
                     int x = boxPlusCourtChemin.getPosition().get(0);
                     int y = boxPlusCourtChemin.getPosition().get(1);
                     maze.getLabyrinthe()[x][y] = new PathBox(x,y);
                 }
+                stateChanged();
+                isShortestPathOnScreen = true;
             }
-            stateChanged();
-            isShortestPathOnScreen = true;
+
         } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(mainFrame, "Il n'y a pas de labyrinthe !");
+            JOptionPane.showMessageDialog(mainFrame, "Il n'y a pas de chemin entre le départ et l'arrivée !");
 
         }
+
     }
 
 
     public void open(){
-        mazeHasName = true;
+
         if(graphModified){
             if(askIfWantToSave().equals("cancel")){
                 return; //si retourne cancel on abandonne l'action d'ouvrir un maze
@@ -265,14 +292,17 @@ public class Model {
         chooser.setCurrentDirectory(new File("src/Sauvegardes"));
 
         while(!fichierCorrect){
-            try{
-                chooser.showOpenDialog(mainFrame);
+            try {
+                if(chooser.showOpenDialog(mainFrame) != JFileChooser.APPROVE_OPTION){
+                    return;
+                }
                 File file = chooser.getSelectedFile();
+
                 setFichierOuvert(file);
                 ArrayList<String> labyrinthBluePrints = new ArrayList<>();
                 Scanner scanner = new Scanner(file);
 
-                while(scanner.hasNextLine()){
+                while (scanner.hasNextLine()) {
                     labyrinthBluePrints.add(scanner.nextLine());
                 }
                 scanner.close();
@@ -280,14 +310,16 @@ public class Model {
                 labyrinthBluePrints.add(chooser.getSelectedFile().getName());
                 setMaze(labyrinthBluePrints);
                 fichierCorrect = true;
+
                 }catch(Exception e){
                     JOptionPane.showMessageDialog(mainFrame,"Le fichier n'est pas valide ! " + e.getMessage());
 
-                    //TODO tester ce qu'il se passe si on fait cancel dans le choix du fichier ou qu'on fait la croix
                 }
 
             }
+        mazeHasName = true;
         graphModified = false;
+        isShortestPathOnScreen = false;
         stateChanged();
     }
 }

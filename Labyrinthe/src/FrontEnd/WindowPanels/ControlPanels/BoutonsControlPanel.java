@@ -26,7 +26,7 @@ public class BoutonsControlPanel extends JPanel {
             }
         });
 
-        boutonPlusCourtChemin.setText("Affichier le plus court chemin");
+        boutonPlusCourtChemin.setText("Afficher le plus court chemin");
 
         add(boutonPlusCourtChemin, BorderLayout.CENTER);
 

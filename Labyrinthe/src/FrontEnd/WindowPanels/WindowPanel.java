@@ -12,8 +12,10 @@ public class WindowPanel extends JPanel{
     private ControlPanel controlPanel;
 
 
+
     public WindowPanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
+
         controlPanel = new ControlPanel(mainFrame);
         mazeViewPanel = new MazeViewPanel(mainFrame);
 

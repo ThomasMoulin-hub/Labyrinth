@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import BackEnd.KeyBoardController;
 import BackEnd.Model;
 import FrontEnd.MenuBar.MenuBar;
 import FrontEnd.WindowPanels.WindowPanel;
@@ -17,8 +18,11 @@ public class MainFrame extends JFrame implements ChangeListener {
     private Model model = new Model(this);
     private final MenuBar menuBar;
 
+
     public MainFrame(){
         super("Labyrinthe");
+        setFocusable(true);
+        addKeyListener(new KeyBoardController(this));
         setJMenuBar(menuBar = new MenuBar(this));
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {

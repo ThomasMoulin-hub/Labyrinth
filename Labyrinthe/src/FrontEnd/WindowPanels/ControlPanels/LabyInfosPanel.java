@@ -21,9 +21,9 @@ public class LabyInfosPanel extends JPanel {
         nameLabel.setFont(font);
         sizeLabel = new JLabel("Taille : ");
         sizeLabel.setFont(font);
-        departureLabel = new JLabel("Départ : (X,Y)");
+        departureLabel = new JLabel("Départ : (X,Y)  ");
         departureLabel.setFont(font);
-        arrivalLabel = new JLabel("Arrivée : (X,Y)");
+        arrivalLabel = new JLabel("Arrivée : (X,Y)  ");
         arrivalLabel.setFont(font);
         add(nameLabel);
         add(departureLabel);
@@ -34,18 +34,18 @@ public class LabyInfosPanel extends JPanel {
         Maze maze = mainFrame.getModel().getMaze();
         if(maze.getName() != null){
 
-            nameLabel.setText("Nom : "+ maze.getName());
+            nameLabel.setText("Nom : "+ maze.getName().replace(".txt","") + "  ");
         }else{nameLabel.setText("Nom :");}
 
-        sizeLabel.setText("Taille : " + maze.getTaille());
+        sizeLabel.setText("Taille : " + maze.getTaille() +"  ");
 
         if(maze.getArrivalBox() != null){
-            arrivalLabel.setText("Arrivée : ("+maze.getArrivalBox().getPosition().get(0)+","+maze.getArrivalBox().getPosition().get(1)+")");
-        }else{arrivalLabel.setText("Arrivée : (X,Y)");}
+            arrivalLabel.setText("Arrivée : ("+maze.getArrivalBox().getPosition().get(0)+","+maze.getArrivalBox().getPosition().get(1)+")  ");
+        }else{arrivalLabel.setText("Arrivée : (X,Y)  ");}
 
         if(maze.getDepartureBox() != null){
-            departureLabel.setText("Départ : ("+maze.getDepartureBox().getPosition().get(0)+","+maze.getDepartureBox().getPosition().get(1)+")");
-        }else{departureLabel.setText("Départ : (X,Y)");}
+            departureLabel.setText("Départ : ("+maze.getDepartureBox().getPosition().get(0)+","+maze.getDepartureBox().getPosition().get(1)+")  ");
+        }else{departureLabel.setText("Départ : (X,Y)  ");}
         repaint();
     }
 

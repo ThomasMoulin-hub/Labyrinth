@@ -19,6 +19,7 @@ public class MazeViewPanel extends JPanel {
 
 
     public MazeViewPanel(MainFrame mainFrame) {
+        //TODO faire un cliquer glisser qui transforme toutes les cases ou on passe dessus
         addMouseListener( new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -37,6 +38,8 @@ public class MazeViewPanel extends JPanel {
     }
     @Override
     public void paintComponent(Graphics g){
+        //TODO adapter la taille des hexagons en fonction de la taille de l'écran
+        //TODO adapter la taille des hexagones en fonction du zoom
         super.paintComponent(g);
         for(Hexagon hex : liste_hex){
             g.setColor(hex.getCouleur());
@@ -47,7 +50,7 @@ public class MazeViewPanel extends JPanel {
 
     }
     public void setListe_hex(ArrayList<Hexagon> liste){
-        liste_hex = liste;
+        this.liste_hex = liste;
     }
     public void notifyForUpdate(){
         ArrayList<Hexagon> liste = new ArrayList<>();
