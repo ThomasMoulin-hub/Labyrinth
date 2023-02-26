@@ -80,7 +80,7 @@ public class Maze implements GraphInterface {
     }
     public String getName(){return name;}
     public String getTaille(){
-        return "("+ nbligne+";"+ nbcolone+")";
+        return "("+ nbligne+"x"+ nbcolone+")";
     }
 
     public void checkIfStillArrivalOrDeparture(){

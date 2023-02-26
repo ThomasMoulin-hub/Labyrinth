@@ -1,5 +1,6 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
+import BackEnd.KeyBoardController;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -29,6 +30,9 @@ public class BoutonsControlPanel extends JPanel {
         boutonPlusCourtChemin.setText("Afficher le plus court chemin");
 
         add(boutonPlusCourtChemin, BorderLayout.CENTER);
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyBoardController(mainFrame));
 
 
     }

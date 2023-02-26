@@ -22,6 +22,7 @@ public class MainFrame extends JFrame implements ChangeListener {
     public MainFrame(){
         super("Labyrinthe");
         setFocusable(true);
+        requestFocusInWindow();
         addKeyListener(new KeyBoardController(this));
         setJMenuBar(menuBar = new MenuBar(this));
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -52,6 +53,15 @@ public class MainFrame extends JFrame implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
+
+        if(model.getMaze().getName() != null){
+            setTitle("Labyrinthe  -  "+ model.getMaze().getName().replace(".txt","") +" "+ model.getMaze().getTaille());
+        }else{setTitle("Labyrinthe");}
+
+
+
+
         windowPanel.notifyForUpdate();
+
     }
 }

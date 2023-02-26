@@ -1,5 +1,6 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
+import BackEnd.KeyBoardController;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -71,6 +72,9 @@ public class BoxTypeChoicePanel extends JPanel {
         add(boutonBleu);
         add(boutonVert);
         add(boutonRouge);
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyBoardController(mainFrame));
 
     }
 }

@@ -1,5 +1,6 @@
 package FrontEnd.WindowPanels;
 
+import BackEnd.KeyBoardController;
 import BackEnd.VertexInterface;
 import FrontEnd.MainFrame;
 import FrontEnd.WindowPanels.Hexagons.Hexagon;
@@ -8,8 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-
 
 
 public class MazeViewPanel extends JPanel {
@@ -19,8 +20,9 @@ public class MazeViewPanel extends JPanel {
 
 
     public MazeViewPanel(MainFrame mainFrame) {
-        //TODO faire un cliquer glisser qui transforme toutes les cases ou on passe dessus
+
         addMouseListener( new MouseAdapter() {
+
             @Override
             public void mousePressed(MouseEvent e) {
                 for(Hexagon hex : liste_hex){
@@ -29,11 +31,28 @@ public class MazeViewPanel extends JPanel {
                         mainFrame.getModel().setBoxType(hex.getY(),hex.getX());
                     }
                 }
-
+                setFocusable(true);
+                requestFocusInWindow();
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                for(Hexagon hex : liste_hex){
+                    if(hex.contains(e.getX(),e.getY())){
+                        hex.setCouleur(mainFrame.getModel().getColorSelected());
+                        mainFrame.getModel().setBoxType(hex.getY(),hex.getX());
+                    }
+                }
+                setFocusable(true);
+                requestFocusInWindow();
             }
         });
 
         this.mainFrame = mainFrame;
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyBoardController(mainFrame));
 
     }
     @Override

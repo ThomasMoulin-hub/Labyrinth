@@ -1,5 +1,6 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
+import BackEnd.KeyBoardController;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -21,6 +22,9 @@ public class ControlPanel extends JPanel {
         add(boutonsControlPanel,BorderLayout.EAST);
         add(boxChoicePanel,BorderLayout.CENTER);
         add(labyInfosPanel,BorderLayout.WEST);
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyBoardController(mainFrame));
     }
     public void notifyForUpdate(){
         labyInfosPanel.notifyForUpdate();

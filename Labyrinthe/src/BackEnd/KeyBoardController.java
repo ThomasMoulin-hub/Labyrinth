@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 public class KeyBoardController extends KeyAdapter {
     //TODO zoom Ctrl+Molette / Ctrl++ / Ctrl+-
+    //TODO Ctrl+Z
     private MainFrame mainFrame;
     public KeyBoardController(MainFrame mainFrame){
         this.mainFrame = mainFrame;

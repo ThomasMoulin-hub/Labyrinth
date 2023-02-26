@@ -29,7 +29,7 @@ public class Model {
     private boolean mazeHasName = true;
 
 
-    //TODO on peut pas faire enregistrer quand y'a pas de labyrinthe
+
 
 
     public Model(MainFrame mainFrame){
@@ -45,10 +45,9 @@ public class Model {
         this.boxTypeSelected = type;
         this.colorSelected = couleur;
     }
-    public char getBoxTypeSelected(){return this.boxTypeSelected;}
     public Color getColorSelected(){return this.colorSelected;}
     public void setMazeName(String name){
-        //TODO coder le changement du nom du labyrinthe
+
         graphModified = true;
         mazeHasName = true;
         maze.setName(name);
@@ -184,14 +183,19 @@ public class Model {
                     case "cancel":
                         return;
                     default:
+                        String [] name= value.split("\\\\",0);
+                        setMazeName(name[name.length-1]);
                         save(new File(value));
+                        stateChanged();
+
                         done = true;
                 }
             }catch(Exception e){
-                JOptionPane.showMessageDialog(mainFrame,"Le nom du fichier n'est pas valide ! " + e.toString());
+                JOptionPane.showMessageDialog(mainFrame,"Le nom du fichier n'est pas valide ! " + e.getMessage());
             }
 
         }
+        graphModified = false;
 
     }
 
@@ -205,18 +209,18 @@ public class Model {
             try{
                 save(fichierOuvert);
             }catch(Exception e){
+
                 //rien car si le fichier a été ouvert on considère que son nom est valide
             }
 
         }
+        graphModified = false;
     }
 
     private void save(File file) throws Exception{
-        if(fichierOuvert == null){
+        if(fichierOuvert != file){
             file.createNewFile();
             fichierOuvert = file;
-        }else{
-            fichierOuvert.renameTo(new File(fichierOuvert.getParent()+maze.getName()));
         }
         PrintWriter writer = new PrintWriter(fichierOuvert);
         MazeBox[][] boxes = maze.getLabyrinthe();

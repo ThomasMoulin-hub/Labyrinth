@@ -1,5 +1,6 @@
 package FrontEnd.WindowPanels;
 
+import BackEnd.KeyBoardController;
 import FrontEnd.MainFrame;
 import FrontEnd.WindowPanels.ControlPanels.ControlPanel;
 
@@ -22,6 +23,9 @@ public class WindowPanel extends JPanel{
         setLayout(new BorderLayout());
         add(controlPanel,BorderLayout.SOUTH);
         add(mazeViewPanel,BorderLayout.CENTER);
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyBoardController(mainFrame));
 
     }
     public void notifyForUpdate(){
