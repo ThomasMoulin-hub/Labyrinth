@@ -2,6 +2,7 @@ package BackEnd;
 
 import BackEnd.MazeBoxes.*;
 import FrontEnd.MainFrame;
+import FrontEnd.WindowPanels.Hexagons.Hexagon;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -38,6 +39,14 @@ public class Model {
 
     }
 
+    public void zoom(){
+        Hexagon.setR(Hexagon.getR() + 5);
+        stateChanged();
+    }
+    public void deZoom(){
+        Hexagon.setR(Hexagon.getR() -5);
+        stateChanged();
+    }
     public void addObserver(ChangeListener listener) {
         listeners.add(listener);}
 
@@ -96,7 +105,7 @@ public class Model {
                 this.maze = new Maze(Integer.valueOf(longueurVerticale.getText()),Integer.valueOf(longueurHorizontale.getText()));
                 resultIsInt= true;
             }catch(Exception e){
-                JOptionPane.showMessageDialog(mainFrame,"Veuillez entrer des chiffres !");
+                JOptionPane.showMessageDialog(mainFrame,"Veuillez entrer des entiers positifs !");
             }
 
         }

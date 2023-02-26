@@ -5,7 +5,7 @@ import FrontEnd.WindowPanels.MazeViewPanel;
 import java.awt.*;
 
 public class Hexagon extends Polygon {
-    private static float R = 70;
+    private static int R = 70;
     private static MazeViewPanel mazeViewPanel; //TODO utiliser la hauteur et la largeur pour centrer les hexagones, et savoir lequel doit etre centré en fonction du zoom
     private Color couleur;
     private static float r = (float) (R*Math.cos(Math.PI / 6));
@@ -21,8 +21,16 @@ public class Hexagon extends Polygon {
         }
 
     }
-    public void setR(float R){
-        this.R = R;
+    public static int getR(){return R;}
+    public static void setR(int Rin){
+        if(Rin < 1){
+            R = 1;
+        }else if(Rin > 500){
+            R = 500;
+        }else{
+            R = Rin;
+        }
+        r = (float) (R*Math.cos(Math.PI / 6));
     }
 
     public void setCouleur(Color couleur){this.couleur = couleur;}

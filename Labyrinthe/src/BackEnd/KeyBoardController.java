@@ -15,7 +15,6 @@ public class KeyBoardController extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e){
-
         if(e.getKeyCode() == KeyEvent.VK_N && e.isControlDown()){
             mainFrame.getModel().newMaze();
         }else if (e.getKeyCode() == KeyEvent.VK_O && e.isControlDown()){
@@ -24,6 +23,10 @@ public class KeyBoardController extends KeyAdapter {
             mainFrame.getModel().enregistrerSous();
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()){
             mainFrame.getModel().enregistrer();
+        }else if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isControlDown() && e.isShiftDown()){
+            mainFrame.getModel().zoom();
+        }else if(e.getKeyCode() == KeyEvent.VK_6 && e.isControlDown()){
+            mainFrame.getModel().deZoom();
         }
     }
 

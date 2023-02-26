@@ -35,6 +35,7 @@ public class MazeViewPanel extends JPanel {
                 requestFocusInWindow();
             }
         });
+
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
