@@ -1,6 +1,7 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
 import BackEnd.KeyBoardController;
+import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -26,8 +27,10 @@ public class BoutonsControlPanel extends JPanel {
                 mainFrame.getModel().plusCourtChemin();
             }
         });
-
+        boutonPlusCourtChemin.addMouseWheelListener(new MouseWheelControler(mainFrame));
+        boutonPlusCourtChemin.addKeyListener(new KeyBoardController(mainFrame));
         boutonPlusCourtChemin.setText("Afficher le plus court chemin");
+
 
         add(boutonPlusCourtChemin, BorderLayout.CENTER);
         setFocusable(true);

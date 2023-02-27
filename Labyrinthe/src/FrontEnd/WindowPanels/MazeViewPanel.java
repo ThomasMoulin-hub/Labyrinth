@@ -1,6 +1,7 @@
 package FrontEnd.WindowPanels;
 
 import BackEnd.KeyBoardController;
+import BackEnd.MouseWheelControler;
 import BackEnd.VertexInterface;
 import FrontEnd.MainFrame;
 import FrontEnd.WindowPanels.Hexagons.Hexagon;
@@ -51,18 +52,7 @@ public class MazeViewPanel extends JPanel {
             }
         });
 
-        addMouseWheelListener(new MouseWheelListener() {
-            @Override
-            public void mouseWheelMoved(MouseWheelEvent e) {
-                if(mainFrame.getModel().getIsControlDown()){
-                    if(e.getWheelRotation() < 0){
-                        mainFrame.getModel().zoom();
-                    }else if(e.getWheelRotation() > 0){
-                        mainFrame.getModel().deZoom();
-                    }
-                }
-            }
-        });
+        addMouseWheelListener(new MouseWheelControler(mainFrame));
         this.mainFrame = mainFrame;
         setFocusable(true);
         requestFocusInWindow();

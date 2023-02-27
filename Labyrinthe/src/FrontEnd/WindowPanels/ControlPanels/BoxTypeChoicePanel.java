@@ -1,6 +1,7 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
 import BackEnd.KeyBoardController;
+import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -33,7 +34,6 @@ public class BoxTypeChoicePanel extends JPanel {
 
 
         boutonBleu.setBackground(Color.BLUE);
-
         boutonGris.setBackground(Color.GRAY);
         boutonRouge.setBackground(Color.RED);
         boutonVert.setBackground(Color.GREEN);
@@ -64,6 +64,7 @@ public class BoxTypeChoicePanel extends JPanel {
 
 
 
+
         add(labelGris);
         add(labelBleu);
         add(labelVert);
@@ -72,9 +73,15 @@ public class BoxTypeChoicePanel extends JPanel {
         add(boutonBleu);
         add(boutonVert);
         add(boutonRouge);
+
+        for(Component comp : getComponents()){
+            comp.addKeyListener(new KeyBoardController(mainFrame));
+            comp.addMouseWheelListener(new MouseWheelControler(mainFrame));
+        }
+
         setFocusable(true);
         requestFocusInWindow();
-        addKeyListener(new KeyBoardController(mainFrame));
+
 
     }
 }

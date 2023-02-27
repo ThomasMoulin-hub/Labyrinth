@@ -1,12 +1,9 @@
 package FrontEnd.WindowPanels.Hexagons;
 
-import FrontEnd.WindowPanels.MazeViewPanel;
-
 import java.awt.*;
 
 public class Hexagon extends Polygon {
     private static double R = 70;
-    private static MazeViewPanel mazeViewPanel; //TODO utiliser la hauteur et la largeur pour centrer les hexagones, et savoir lequel doit etre centré en fonction du zoom
     private Color couleur;
     private static double r = (R*Math.cos(Math.PI / 6));
     private int x;

@@ -18,13 +18,16 @@ public class KeyBoardController extends KeyAdapter {
 
         if(e.getKeyCode() == KeyEvent.VK_N && e.isControlDown()){
             mainFrame.getModel().newMaze();
+            mainFrame.getModel().setIsControlDown(false);
         }else if (e.getKeyCode() == KeyEvent.VK_O && e.isControlDown()){
             mainFrame.getModel().open();
             mainFrame.getModel().setIsControlDown(false);
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown() && e.isShiftDown()){
             mainFrame.getModel().enregistrerSous();
+            mainFrame.getModel().setIsControlDown(false);
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()){
             mainFrame.getModel().enregistrer();
+            mainFrame.getModel().setIsControlDown(false);
         }else if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isControlDown() && e.isShiftDown()){
             mainFrame.getModel().zoom();
         }else if(e.getKeyCode() == KeyEvent.VK_6 && e.isControlDown()){
