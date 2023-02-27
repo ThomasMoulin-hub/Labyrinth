@@ -30,7 +30,7 @@ public class MazeViewPanel extends JPanel {
                 for(Hexagon hex : liste_hex){
                     if(hex.contains(e.getX(),e.getY())){
                         hex.setCouleur(mainFrame.getModel().getColorSelected());
-                        mainFrame.getModel().setBoxType(hex.getY(),hex.getX());
+                        mainFrame.getModel().setBox(hex.getY(),hex.getX());
                     }
                 }
                 setFocusable(true);
@@ -44,7 +44,7 @@ public class MazeViewPanel extends JPanel {
                 for(Hexagon hex : liste_hex){
                     if(hex.contains(e.getX(),e.getY())){
                         hex.setCouleur(mainFrame.getModel().getColorSelected());
-                        mainFrame.getModel().setBoxType(hex.getY(),hex.getX());
+                        mainFrame.getModel().setBox(hex.getY(),hex.getX());
                     }
                 }
                 setFocusable(true);

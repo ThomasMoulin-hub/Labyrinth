@@ -7,7 +7,6 @@ import java.awt.event.KeyEvent;
 
 public class KeyBoardController extends KeyAdapter {
 
-    //TODO Ctrl+Z
     private MainFrame mainFrame;
     public KeyBoardController(MainFrame mainFrame){
         this.mainFrame = mainFrame;

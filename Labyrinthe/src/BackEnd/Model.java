@@ -28,10 +28,7 @@ public class Model {
     private ArrayList<VertexInterface> shortestPathList;
     private boolean mazeHasName = true;
     private boolean isControlDown = false;
-
-    //TODO on peut pas zoomer quand y'a un plus court chemin probleme de focus aussi !
-    //TODO Quand on sélecionne un coleur on peut plus zoomer parce que le focus est plus bon
-
+    private ArrayList<MazeBox> listeDesActions = new ArrayList<>();
 
 
     public Model(MainFrame mainFrame){
@@ -115,10 +112,11 @@ public class Model {
         mazeHasName = false;
         graphModified = false;
         isShortestPathOnScreen = false;
+        listeDesActions = new ArrayList<>();
         stateChanged();
     }
 
-    public void setBoxType(int x,int y){
+    public void setBox(int x, int y){
         graphModified = true;
         if(isShortestPathOnScreen){
             for(VertexInterface pathBox : shortestPathList){
@@ -128,7 +126,9 @@ public class Model {
             }
             isShortestPathOnScreen = false;
         }
+        listeDesActions.add(maze.getLabyrinthe()[x][y]);
         switch(boxTypeSelected){
+
             case 'E':
                 maze.getLabyrinthe()[x][y] = new EmptyBox(x,y);
                 break;
@@ -246,7 +246,11 @@ public class Model {
         writer.close();
     }
     public void retablir(){
-        //TODO faire le ctrl z
+        if(listeDesActions.size() > 0){
+            MazeBox  boite= listeDesActions.remove(listeDesActions.size()-1);
+            maze.getLabyrinthe()[boite.getPosition().get(0)][boite.getPosition().get(1)] = boite;
+        }
+        stateChanged();
     }
 
     public String askIfWantToSave(){
@@ -339,6 +343,8 @@ public class Model {
         mazeHasName = true;
         graphModified = false;
         isShortestPathOnScreen = false;
+        listeDesActions = new ArrayList<>();
+
         stateChanged();
     }
 }
