@@ -17,7 +17,10 @@ public class MazeViewPanel extends JPanel {
     private ArrayList<Hexagon> liste_hex = new ArrayList<>();
 
 
+
     public MazeViewPanel(MainFrame mainFrame) {
+
+
 
         addMouseListener( new MouseAdapter() {
 
@@ -52,9 +55,9 @@ public class MazeViewPanel extends JPanel {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
                 if(mainFrame.getModel().getIsControlDown()){
-                    if(e.getWheelRotation()>0){
+                    if(e.getWheelRotation() < 0){
                         mainFrame.getModel().zoom();
-                    }else if(e.getWheelRotation() < 0){
+                    }else if(e.getWheelRotation() > 0){
                         mainFrame.getModel().deZoom();
                     }
                 }
@@ -86,8 +89,13 @@ public class MazeViewPanel extends JPanel {
         for(VertexInterface box : mainFrame.getModel().getMaze().getAllVertexes()){
             liste.add(new Hexagon(box.getPosition().get(1), box.getPosition().get(0),box.getCouleur()));
         }
+
         setListe_hex(liste);
+
+        setPreferredSize(new Dimension((int) (Hexagon.getLargeur() * (mainFrame.getModel().getMaze().getNbcolone() + 0.5)),(int) (Hexagon.getHauteur() * (mainFrame.getModel().getMaze().getNbligne() -1) + 2*Hexagon.getR())));
+        revalidate();
         repaint();
+
     }
 
 

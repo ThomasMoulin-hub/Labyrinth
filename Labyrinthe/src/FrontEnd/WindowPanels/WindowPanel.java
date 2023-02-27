@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class WindowPanel extends JPanel{
     private MainFrame mainFrame;
-    private MazeViewPanel mazeViewPanel;
     private ControlPanel controlPanel;
+    private ScrollViewPanel scrollView;
 
 
 
@@ -18,19 +18,22 @@ public class WindowPanel extends JPanel{
         this.mainFrame = mainFrame;
 
         controlPanel = new ControlPanel(mainFrame);
-        mazeViewPanel = new MazeViewPanel(mainFrame);
 
+        scrollView = new ScrollViewPanel(mainFrame,new MazeViewPanel(mainFrame));
         setLayout(new BorderLayout());
+        add(scrollView,BorderLayout.CENTER);
         add(controlPanel,BorderLayout.SOUTH);
-        add(mazeViewPanel,BorderLayout.CENTER);
+
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(new KeyBoardController(mainFrame));
 
     }
     public void notifyForUpdate(){
+
         controlPanel.notifyForUpdate();
-        mazeViewPanel.notifyForUpdate();
+        scrollView.notifyForUpdate();
+
     }
 
 }

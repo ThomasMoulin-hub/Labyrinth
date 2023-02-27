@@ -79,6 +79,14 @@ public class Maze implements GraphInterface {
         this.name = name;
     }
     public String getName(){return name;}
+
+    public int getNbcolone() {
+        return nbcolone;
+    }
+    public int getNbligne(){
+        return nbligne;
+    }
+
     public String getTaille(){
         return "("+ nbligne+"x"+ nbcolone+")";
     }

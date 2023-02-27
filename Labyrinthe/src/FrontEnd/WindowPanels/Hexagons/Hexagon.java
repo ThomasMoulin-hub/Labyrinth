@@ -23,7 +23,6 @@ public class Hexagon extends Polygon {
     }
     public static double getR(){return R;}
     public static void setR(double Rin){
-        System.out.println(Rin);
         if(Rin < 1){
             R = 1;
         }else if(Rin > 500){
@@ -33,12 +32,15 @@ public class Hexagon extends Polygon {
         }
         r = (R*Math.cos(Math.PI / 6));
     }
+    public static double getHauteur(){
+        return r * Math.sqrt(3);
+    }
+    public static double getLargeur(){
+        return 2*r;
+    }
 
     public void setCouleur(Color couleur){this.couleur = couleur;}
 
-    public void setMazeViewPanel(MazeViewPanel mazeViewPanel){
-        this.mazeViewPanel = mazeViewPanel;
-    }
     public Color getCouleur(){return this.couleur;}
     public int getX(){return x;}
     public int getY(){return y;}

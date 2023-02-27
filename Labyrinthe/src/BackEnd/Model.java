@@ -29,7 +29,8 @@ public class Model {
     private boolean mazeHasName = true;
     private boolean isControlDown = false;
 
-
+    //TODO on peut pas zoomer quand y'a un plus court chemin probleme de focus aussi !
+    //TODO Quand on sélecionne un coleur on peut plus zoomer parce que le focus est plus bon
 
 
 
