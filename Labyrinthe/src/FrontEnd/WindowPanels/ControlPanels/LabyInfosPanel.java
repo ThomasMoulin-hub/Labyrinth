@@ -2,6 +2,7 @@ package FrontEnd.WindowPanels.ControlPanels;
 
 import BackEnd.KeyBoardController;
 import BackEnd.Maze;
+import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class LabyInfosPanel extends JPanel {
         add(arrivalLabel);
         setFocusable(true);
         requestFocusInWindow();
-        addKeyListener(new KeyBoardController(mainFrame));
+
     }
     public void notifyForUpdate(){
         Maze maze = mainFrame.getModel().getMaze();
@@ -40,6 +41,10 @@ public class LabyInfosPanel extends JPanel {
         repaint();
     }
 
+    public void initAfterAllIsInit(){
+        addKeyListener(new KeyBoardController(mainFrame));
+        addMouseWheelListener(new MouseWheelControler(mainFrame));
+    }
 
 }
 

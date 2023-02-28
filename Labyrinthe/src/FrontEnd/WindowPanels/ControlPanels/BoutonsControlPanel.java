@@ -27,8 +27,7 @@ public class BoutonsControlPanel extends JPanel {
                 mainFrame.getModel().plusCourtChemin();
             }
         });
-        boutonPlusCourtChemin.addMouseWheelListener(new MouseWheelControler(mainFrame));
-        boutonPlusCourtChemin.addKeyListener(new KeyBoardController(mainFrame));
+
         boutonPlusCourtChemin.setText("Afficher le plus court chemin");
 
 
@@ -38,5 +37,9 @@ public class BoutonsControlPanel extends JPanel {
         addKeyListener(new KeyBoardController(mainFrame));
 
 
+    }
+    public void initAfterAllIsInit(){
+        boutonPlusCourtChemin.addMouseWheelListener(new MouseWheelControler(mainFrame));
+        boutonPlusCourtChemin.addKeyListener(new KeyBoardController(mainFrame));
     }
 }

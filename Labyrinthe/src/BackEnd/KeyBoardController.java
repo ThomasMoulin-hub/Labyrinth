@@ -18,15 +18,23 @@ public class KeyBoardController extends KeyAdapter {
         if(e.getKeyCode() == KeyEvent.VK_N && e.isControlDown()){
             mainFrame.getModel().newMaze();
             mainFrame.getModel().setIsControlDown(false);
+            mainFrame.getModel().setIsShiftDown(false);
+
         }else if (e.getKeyCode() == KeyEvent.VK_O && e.isControlDown()){
             mainFrame.getModel().open();
             mainFrame.getModel().setIsControlDown(false);
+            mainFrame.getModel().setIsShiftDown(false);
+
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown() && e.isShiftDown()){
             mainFrame.getModel().enregistrerSous();
             mainFrame.getModel().setIsControlDown(false);
+            mainFrame.getModel().setIsShiftDown(false);
+
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()){
             mainFrame.getModel().enregistrer();
             mainFrame.getModel().setIsControlDown(false);
+            mainFrame.getModel().setIsShiftDown(false);
+
         }else if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isControlDown() && e.isShiftDown()){
             mainFrame.getModel().zoom();
         }else if(e.getKeyCode() == KeyEvent.VK_6 && e.isControlDown()){
@@ -35,6 +43,8 @@ public class KeyBoardController extends KeyAdapter {
             mainFrame.getModel().retablir();
         }else if(e.isControlDown()){
             mainFrame.getModel().setIsControlDown(true);
+        }else if(e.isShiftDown()){
+            mainFrame.getModel().setIsShiftDown(true);
         }
     }
 
@@ -42,6 +52,9 @@ public class KeyBoardController extends KeyAdapter {
     public void keyReleased(KeyEvent e){
         if(mainFrame.getModel().getIsControlDown()) {
             mainFrame.getModel().setIsControlDown(false);
+
+        }else if(mainFrame.getModel().getIsShiftDown()){
+            mainFrame.getModel().setIsShiftDown(false);
         }
     }
 

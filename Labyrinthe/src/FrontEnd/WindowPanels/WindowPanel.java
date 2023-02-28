@@ -11,15 +11,17 @@ public class WindowPanel extends JPanel{
     private MainFrame mainFrame;
     private ControlPanel controlPanel;
     private ScrollViewPanel scrollView;
+    private MazeViewPanel mazeViewPanel;
 
 
 
     public WindowPanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
-
+        mazeViewPanel = new MazeViewPanel(mainFrame);
+        scrollView = new ScrollViewPanel(mainFrame,mazeViewPanel);
         controlPanel = new ControlPanel(mainFrame);
 
-        scrollView = new ScrollViewPanel(mainFrame,new MazeViewPanel(mainFrame));
+
         setLayout(new BorderLayout());
         add(scrollView,BorderLayout.CENTER);
         add(controlPanel,BorderLayout.SOUTH);
@@ -34,6 +36,10 @@ public class WindowPanel extends JPanel{
         controlPanel.notifyForUpdate();
         scrollView.notifyForUpdate();
 
+    }
+    public void initAfterAllIsInit(){
+        controlPanel.initAfterAllIsInit();
+        scrollView.initAfterAllIsInit();
     }
 
 }

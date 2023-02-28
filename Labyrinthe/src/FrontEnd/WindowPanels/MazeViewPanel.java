@@ -21,8 +21,13 @@ public class MazeViewPanel extends JPanel {
 
     public MazeViewPanel(MainFrame mainFrame) {
 
+        this.mainFrame = mainFrame;
+        setFocusable(true);
+        requestFocusInWindow();
 
 
+    }
+    public void initAfterAllIsInit(){
         addMouseListener( new MouseAdapter() {
 
             @Override
@@ -53,11 +58,7 @@ public class MazeViewPanel extends JPanel {
         });
 
         addMouseWheelListener(new MouseWheelControler(mainFrame));
-        this.mainFrame = mainFrame;
-        setFocusable(true);
-        requestFocusInWindow();
         addKeyListener(new KeyBoardController(mainFrame));
-
     }
     @Override
     public void paintComponent(Graphics g){

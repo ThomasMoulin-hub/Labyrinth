@@ -21,6 +21,7 @@ public class MainFrame extends JFrame implements ChangeListener {
 
     public MainFrame(){
         super("Labyrinthe");
+        setContentPane(windowPanel = new WindowPanel(this));
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(new KeyBoardController(this));
@@ -36,7 +37,7 @@ public class MainFrame extends JFrame implements ChangeListener {
         model.addObserver(this);
         Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
         setMinimumSize(new Dimension((int) screensize.getWidth()/3,(int) (3*screensize.getHeight()/4)));
-        setContentPane(windowPanel = new WindowPanel(this));
+
         pack();
 
 
@@ -44,6 +45,8 @@ public class MainFrame extends JFrame implements ChangeListener {
 
 
         setVisible(true);
+        windowPanel.initAfterAllIsInit();
+
 
     }
 

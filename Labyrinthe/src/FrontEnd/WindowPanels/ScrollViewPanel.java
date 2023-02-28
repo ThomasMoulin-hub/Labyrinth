@@ -12,6 +12,7 @@ public class ScrollViewPanel extends JScrollPane {
         this.mazeViewPanel = panel;
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        setWheelScrollingEnabled(true);
         setViewportView(mazeViewPanel);
 
 
@@ -20,7 +21,8 @@ public class ScrollViewPanel extends JScrollPane {
         mazeViewPanel.notifyForUpdate();
         revalidate();
         repaint();
-
-
+    }
+    public void initAfterAllIsInit(){
+        mazeViewPanel.initAfterAllIsInit();
     }
 }

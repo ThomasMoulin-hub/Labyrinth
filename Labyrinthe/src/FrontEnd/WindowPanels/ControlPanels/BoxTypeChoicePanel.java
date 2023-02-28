@@ -74,14 +74,17 @@ public class BoxTypeChoicePanel extends JPanel {
         add(boutonVert);
         add(boutonRouge);
 
-        for(Component comp : getComponents()){
-            comp.addKeyListener(new KeyBoardController(mainFrame));
-            comp.addMouseWheelListener(new MouseWheelControler(mainFrame));
-        }
+
 
         setFocusable(true);
         requestFocusInWindow();
 
 
+    }
+    public void initAfterAllIsInit(){
+        for(Component comp : getComponents()){
+            comp.addKeyListener(new KeyBoardController(mainFrame));
+            comp.addMouseWheelListener(new MouseWheelControler(mainFrame));
+        }
     }
 }

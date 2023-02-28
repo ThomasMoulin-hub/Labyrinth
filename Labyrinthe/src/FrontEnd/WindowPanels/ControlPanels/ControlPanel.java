@@ -30,4 +30,9 @@ public class ControlPanel extends JPanel {
         labyInfosPanel.notifyForUpdate();
 
     }
+    public void initAfterAllIsInit(){
+        boxChoicePanel.initAfterAllIsInit();
+        boutonsControlPanel.initAfterAllIsInit();
+        labyInfosPanel.initAfterAllIsInit();
+    }
 }

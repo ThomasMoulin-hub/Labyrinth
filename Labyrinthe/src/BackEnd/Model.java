@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Model {
+    //TODO chercher tous les mainframe .get qui sont final genre les panels et tout PAS LES MAZES QUI CHANGENT TOUS LE TEMPS et les init dans InitAfterAlIsInit
     private boolean graphModified = false;
     private final MainFrame mainFrame;
     private Maze maze;
@@ -28,6 +29,7 @@ public class Model {
     private ArrayList<VertexInterface> shortestPathList;
     private boolean mazeHasName = true;
     private boolean isControlDown = false;
+    private boolean isShiftDown = false;
     private ArrayList<MazeBox> listeDesActions = new ArrayList<>();
 
 
@@ -53,8 +55,10 @@ public class Model {
         this.colorSelected = couleur;
     }
     public void setIsControlDown(boolean valueCtrl){this.isControlDown = valueCtrl;}
+    public void setIsShiftDown(boolean valueShift){this.isShiftDown = valueShift;}
     public Color getColorSelected(){return this.colorSelected;}
     public boolean getIsControlDown(){return isControlDown;}
+    public boolean getIsShiftDown(){return isShiftDown;}
     public void setMazeName(String name){
 
         graphModified = true;
@@ -81,7 +85,11 @@ public class Model {
 
 
     public void quit(){
-        if(graphModified){askIfWantToSave();}
+        if(graphModified){
+            if(askIfWantToSave()=="cancel"){
+            return;
+            }
+        }
         mainFrame.dispose();
     }
 
@@ -117,7 +125,6 @@ public class Model {
     }
 
     public void setBox(int x, int y){
-        graphModified = true;
         if(isShortestPathOnScreen){
             for(VertexInterface pathBox : shortestPathList){
                 int xP = pathBox.getPosition().get(0);
@@ -131,9 +138,11 @@ public class Model {
 
             case 'E':
                 maze.getLabyrinthe()[x][y] = new EmptyBox(x,y);
+                graphModified = true;
                 break;
             case 'W':
                 maze.getLabyrinthe()[x][y] = new WallBox(x,y);
+                graphModified = true;
                 break;
             case 'D':
                 DepartureBox dbox = new DepartureBox(x,y);
@@ -145,6 +154,7 @@ public class Model {
                 }
                 maze.getLabyrinthe()[x][y] = dbox;
                 maze.setDepartureBox(dbox);
+                graphModified = true;
                 break;
 
             case 'A':
@@ -158,6 +168,7 @@ public class Model {
 
                 maze.getLabyrinthe()[x][y] = abox;
                 maze.setArrivalBox(abox);
+                graphModified = true;
                 break;
         }
         maze.checkIfStillArrivalOrDeparture();
