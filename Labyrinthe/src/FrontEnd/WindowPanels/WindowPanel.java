@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class WindowPanel extends JPanel{
-    private MainFrame mainFrame;
     private ControlPanel controlPanel;
     private ScrollViewPanel scrollView;
     private MazeViewPanel mazeViewPanel;
@@ -16,9 +15,9 @@ public class WindowPanel extends JPanel{
 
 
     public WindowPanel(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+
         mazeViewPanel = new MazeViewPanel(mainFrame);
-        scrollView = new ScrollViewPanel(mainFrame,mazeViewPanel);
+        scrollView = new ScrollViewPanel(mazeViewPanel);
         controlPanel = new ControlPanel(mainFrame);
 
 

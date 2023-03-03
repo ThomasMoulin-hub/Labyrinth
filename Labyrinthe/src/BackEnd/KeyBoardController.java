@@ -6,55 +6,54 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class KeyBoardController extends KeyAdapter {
-
-    private MainFrame mainFrame;
+    private Model model;
     public KeyBoardController(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+        this.model = mainFrame.getModel();
     }
 
     @Override
     public void keyPressed(KeyEvent e){
 
         if(e.getKeyCode() == KeyEvent.VK_N && e.isControlDown()){
-            mainFrame.getModel().newMaze();
-            mainFrame.getModel().setIsControlDown(false);
-            mainFrame.getModel().setIsShiftDown(false);
+            model.newMaze();
+            model.setIsControlDown(false);
+            model.setIsShiftDown(false);
 
         }else if (e.getKeyCode() == KeyEvent.VK_O && e.isControlDown()){
-            mainFrame.getModel().open();
-            mainFrame.getModel().setIsControlDown(false);
-            mainFrame.getModel().setIsShiftDown(false);
+            model.open();
+            model.setIsControlDown(false);
+            model.setIsShiftDown(false);
 
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown() && e.isShiftDown()){
-            mainFrame.getModel().enregistrerSous();
-            mainFrame.getModel().setIsControlDown(false);
-            mainFrame.getModel().setIsShiftDown(false);
+            model.enregistrerSous();
+            model.setIsControlDown(false);
+            model.setIsShiftDown(false);
 
         }else if(e.getKeyCode() == KeyEvent.VK_S && e.isControlDown()){
-            mainFrame.getModel().enregistrer();
-            mainFrame.getModel().setIsControlDown(false);
-            mainFrame.getModel().setIsShiftDown(false);
+            model.enregistrer();
+            model.setIsControlDown(false);
+            model.setIsShiftDown(false);
 
         }else if(e.getKeyCode() == KeyEvent.VK_EQUALS && e.isControlDown() && e.isShiftDown()){
-            mainFrame.getModel().zoom();
+            model.zoom();
         }else if(e.getKeyCode() == KeyEvent.VK_6 && e.isControlDown()){
-            mainFrame.getModel().deZoom();
+            model.deZoom();
         }else if(e.getKeyCode() == KeyEvent.VK_Z && e.isControlDown()){
-            mainFrame.getModel().retablir();
+            model.retablir();
         }else if(e.isControlDown()){
-            mainFrame.getModel().setIsControlDown(true);
+            model.setIsControlDown(true);
         }else if(e.isShiftDown()){
-            mainFrame.getModel().setIsShiftDown(true);
+            model.setIsShiftDown(true);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e){
-        if(mainFrame.getModel().getIsControlDown()) {
-            mainFrame.getModel().setIsControlDown(false);
+        if(model.getIsControlDown()) {
+            model.setIsControlDown(false);
 
-        }else if(mainFrame.getModel().getIsShiftDown()){
-            mainFrame.getModel().setIsShiftDown(false);
+        }else if(model.getIsShiftDown()){
+            model.setIsShiftDown(false);
         }
     }
 

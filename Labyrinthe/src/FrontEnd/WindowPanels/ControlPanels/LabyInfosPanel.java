@@ -2,6 +2,7 @@ package FrontEnd.WindowPanels.ControlPanels;
 
 import BackEnd.KeyBoardController;
 import BackEnd.Maze;
+import BackEnd.Model;
 import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
 
@@ -10,12 +11,13 @@ import java.awt.*;
 
 public class LabyInfosPanel extends JPanel {
     private MainFrame mainFrame;
-
+    private Model model;
     private JLabel departureLabel;
     private JLabel arrivalLabel;
 
     public LabyInfosPanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
+        this.model = mainFrame.getModel();
         Font font = new Font("Serif",Font.PLAIN,24);
         setLayout(new GridLayout(1,2));
         departureLabel = new JLabel("Départ : (X,Y)  ");
@@ -29,7 +31,7 @@ public class LabyInfosPanel extends JPanel {
 
     }
     public void notifyForUpdate(){
-        Maze maze = mainFrame.getModel().getMaze();
+        Maze maze = model.getMaze();
 
         if(maze.getArrivalBox() != null){
             arrivalLabel.setText("Arrivée : ("+maze.getArrivalBox().getPosition().get(0)+","+maze.getArrivalBox().getPosition().get(1)+")  ");

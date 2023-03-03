@@ -1,6 +1,7 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
 import BackEnd.KeyBoardController;
+import BackEnd.Model;
 import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
 
@@ -10,21 +11,23 @@ import java.awt.event.ActionEvent;
 
 public class BoxTypeChoicePanel extends JPanel {
     private MainFrame mainFrame;
+    private Model model;
     public BoxTypeChoicePanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
+        this.model = mainFrame.getModel();
         setLayout(new GridLayout(2,4));
         Font font = new Font("Serif",Font.PLAIN,24);
         JButton boutonGris = new JButton();
         JButton boutonBleu = new JButton();
         JButton boutonRouge = new JButton();
         JButton boutonVert = new JButton();
-        JLabel labelGris = new JLabel("Empty Box");
+        JLabel labelGris = new JLabel("Route");
         labelGris.setFont(font);
-        JLabel labelBleu = new JLabel("Wall Box");
+        JLabel labelBleu = new JLabel("Mur");
         labelBleu.setFont(font);
-        JLabel labelVert = new JLabel("Departure Box");
+        JLabel labelVert = new JLabel("Départ");
         labelVert.setFont(font);
-        JLabel labelRouge = new JLabel("Arrival Box");
+        JLabel labelRouge = new JLabel("Arrivée");
         labelRouge.setFont(font);
 
         boutonGris.setPreferredSize(new Dimension(30,30));
@@ -41,24 +44,24 @@ public class BoxTypeChoicePanel extends JPanel {
         boutonBleu.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.getModel().setBoxTypeSelected('W', Color.BLUE);
+                model.setBoxTypeSelected('W', Color.BLUE);
             }
         });
         boutonGris.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.getModel().setBoxTypeSelected('E',Color.GRAY);
+                model.setBoxTypeSelected('E',Color.GRAY);
             }
         });
         boutonRouge.setAction(new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {mainFrame.getModel().setBoxTypeSelected('A',Color.RED);
+            public void actionPerformed(ActionEvent e) {model.setBoxTypeSelected('A',Color.RED);
             }
         });
         boutonVert.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.getModel().setBoxTypeSelected('D',Color.GREEN);
+                model.setBoxTypeSelected('D',Color.GREEN);
             }
         });
 

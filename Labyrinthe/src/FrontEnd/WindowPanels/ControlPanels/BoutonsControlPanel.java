@@ -14,6 +14,7 @@ public class BoutonsControlPanel extends JPanel {
 
     public BoutonsControlPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
+
         Font font = new Font("Serif", Font.PLAIN, 24);
 
         setLayout(new BorderLayout());

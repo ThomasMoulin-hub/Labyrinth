@@ -9,6 +9,7 @@ public class ViewMenu extends JMenu {
 
     public ViewMenu(MainFrame mainFrame){
         super("Affichage");
+        add(new DefaultZoomMenuItem(mainFrame));
         //add items in the view menu
     }
 }

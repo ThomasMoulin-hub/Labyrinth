@@ -1,32 +1,34 @@
 package BackEnd;
 
 import FrontEnd.MainFrame;
+import FrontEnd.WindowPanels.Hexagons.Hexagon;
 
 import javax.swing.*;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
 public class MouseWheelControler implements MouseWheelListener {
-    private MainFrame mainFrame;
+
+    private Model model;
     private JScrollPane pane;
     public MouseWheelControler(MainFrame mainFrame){
-        this.mainFrame = mainFrame;
+        this.model = mainFrame.getModel();
         this.pane = (JScrollPane) mainFrame.getContentPane().getComponents()[0];
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
 
-        if(mainFrame.getModel().getIsControlDown()){
+        if(model.getIsControlDown()){
             if(e.getWheelRotation() < 0){
-                mainFrame.getModel().zoom();
+                model.zoom();
             }else if(e.getWheelRotation() > 0){
-                mainFrame.getModel().deZoom();
+                model.deZoom();
             }
-        }else if(mainFrame.getModel().getIsShiftDown()){
-            pane.getHorizontalScrollBar().setValue(pane.getHorizontalScrollBar().getValue()+e.getWheelRotation());
+        }else if(model.getIsShiftDown()){
+            pane.getHorizontalScrollBar().setValue( (int) (pane.getHorizontalScrollBar().getValue()+e.getWheelRotation()*Hexagon.getR()));
 
         }else{
-            pane.getVerticalScrollBar().setValue(pane.getVerticalScrollBar().getValue()+e.getWheelRotation());
+            pane.getVerticalScrollBar().setValue((int) (pane.getVerticalScrollBar().getValue()+e.getWheelRotation()*Hexagon.getR()));
 
         }
     }

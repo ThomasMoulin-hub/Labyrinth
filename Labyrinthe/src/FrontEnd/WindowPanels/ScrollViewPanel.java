@@ -1,13 +1,11 @@
 package FrontEnd.WindowPanels;
 
-import FrontEnd.MainFrame;
-
 import javax.swing.*;
 
 public class ScrollViewPanel extends JScrollPane {
     private MazeViewPanel mazeViewPanel;
 
-    public ScrollViewPanel(MainFrame mainFrame, MazeViewPanel panel){
+    public ScrollViewPanel(MazeViewPanel panel){
 
         this.mazeViewPanel = panel;
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -21,6 +19,9 @@ public class ScrollViewPanel extends JScrollPane {
         mazeViewPanel.notifyForUpdate();
         revalidate();
         repaint();
+    }
+    public boolean areScrollBarsOnScreen(){
+        return getHorizontalScrollBar().isVisible() || getVerticalScrollBar().isVisible();
     }
     public void initAfterAllIsInit(){
         mazeViewPanel.initAfterAllIsInit();

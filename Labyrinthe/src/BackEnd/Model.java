@@ -3,6 +3,7 @@ package BackEnd;
 import BackEnd.MazeBoxes.*;
 import FrontEnd.MainFrame;
 import FrontEnd.WindowPanels.Hexagons.Hexagon;
+import FrontEnd.WindowPanels.ScrollViewPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -16,12 +17,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Model {
-    //TODO chercher tous les mainframe .get qui sont final genre les panels et tout PAS LES MAZES QUI CHANGENT TOUS LE TEMPS et les init dans InitAfterAlIsInit
     private boolean graphModified = false;
     private final MainFrame mainFrame;
+    private ScrollViewPanel scrollViewPanel;
     private Maze maze;
-    private final List<ChangeListener> listeners
-            = new ArrayList<ChangeListener>();
+    private final List<ChangeListener> listeners = new ArrayList<ChangeListener>();
     private char boxTypeSelected;
     private Color colorSelected;
     private File fichierOuvert;
@@ -32,24 +32,17 @@ public class Model {
     private boolean isShiftDown = false;
     private ArrayList<MazeBox> listeDesActions = new ArrayList<>();
 
-
     public Model(MainFrame mainFrame){
         this.mainFrame = mainFrame;
 
 
     }
+    public void initAfterAllIsInit(){
+        this.scrollViewPanel = (ScrollViewPanel) mainFrame.getContentPane().getComponents()[0];
+    }
 
-    public void zoom(){
-        Hexagon.setR(Hexagon.getR() * (1.1));
-        stateChanged();
-    }
-    public void deZoom(){
-        Hexagon.setR(Hexagon.getR() * (0.9));
-        stateChanged();
-    }
     public void addObserver(ChangeListener listener) {
         listeners.add(listener);}
-
     public void setBoxTypeSelected(char type, Color couleur){
         this.boxTypeSelected = type;
         this.colorSelected = couleur;
@@ -65,15 +58,12 @@ public class Model {
         mazeHasName = true;
         maze.setName(name);
     }
-
     public void setFichierOuvert(File fichierOuvert) {
         this.fichierOuvert = fichierOuvert;
     }
-
     public Maze getMaze(){return maze;}
     public void setShortestPathList(ArrayList<VertexInterface> list){this.shortestPathList = list;}
     public void setMaze(ArrayList<String> labyrintheBluePrints) throws Exception {this.maze = new Maze(labyrintheBluePrints);}
-
     public void stateChanged() {
         ChangeEvent evt = new ChangeEvent(this) ;
 
@@ -81,9 +71,6 @@ public class Model {
             listener.stateChanged(evt);
         }
     }
-
-
-
     public void quit(){
         if(graphModified){
             if(askIfWantToSave()=="cancel"){
@@ -92,7 +79,6 @@ public class Model {
         }
         mainFrame.dispose();
     }
-
     public void newMaze(){
         if(graphModified){
             if(askIfWantToSave().equals("cancel")){
@@ -122,8 +108,8 @@ public class Model {
         isShortestPathOnScreen = false;
         listeDesActions = new ArrayList<>();
         stateChanged();
-    }
 
+    }
     public void setBox(int x, int y){
         if(isShortestPathOnScreen){
             for(VertexInterface pathBox : shortestPathList){
@@ -174,7 +160,6 @@ public class Model {
         maze.checkIfStillArrivalOrDeparture();
         stateChanged();
     }
-
     public String askFileName(){
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new File("src/Sauvegardes"));
@@ -193,7 +178,6 @@ public class Model {
         }
 
     }
-
     public void enregistrerSous(){
         if(maze == null){
             return;
@@ -221,7 +205,6 @@ public class Model {
         graphModified = false;
 
     }
-
     public void enregistrer(){
         if(maze == null){
             return;
@@ -239,7 +222,6 @@ public class Model {
         }
         graphModified = false;
     }
-
     private void save(File file) throws Exception{
         if(fichierOuvert != file){
             file.createNewFile();
@@ -263,7 +245,29 @@ public class Model {
         }
         stateChanged();
     }
+    public void zoom(){
+        Hexagon.setR(Hexagon.getR() * (1.1));
+        stateChanged();
+    }
+    public void deZoom(){
+        Hexagon.setR(Hexagon.getR() * (0.9));
+        stateChanged();
+    }
+    public void setDefaulZoom(){
+        if(maze == null){return;}
+        SwingWorker<Void, Void> worker = new SwingWorker<>() {
 
+            @Override
+            protected Void doInBackground() throws Exception {
+                while(scrollViewPanel.areScrollBarsOnScreen() && Hexagon.getR() >1){
+                    deZoom();
+                    Thread.sleep(100);
+                }
+                return null;
+            }
+        };
+        worker.execute();
+    }
     public String askIfWantToSave(){
         Object[] possibilities = {"Oui","Non"};
         switch(JOptionPane.showOptionDialog(mainFrame,"Voulez-vous sauvegarder ?","Savegarder",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE,null,possibilities,possibilities[0])){
@@ -277,8 +281,6 @@ public class Model {
         }
         return"";
     }
-
-
     public void plusCourtChemin() {
 
         try {
@@ -310,8 +312,6 @@ public class Model {
         }
 
     }
-
-
     public void open(){
 
         if(graphModified){
@@ -355,7 +355,7 @@ public class Model {
         graphModified = false;
         isShortestPathOnScreen = false;
         listeDesActions = new ArrayList<>();
-
         stateChanged();
+
     }
 }
