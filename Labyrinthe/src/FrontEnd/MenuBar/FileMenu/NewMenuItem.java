@@ -1,15 +1,26 @@
 package FrontEnd.MenuBar.FileMenu;
 
+/**
+ * This class represents a JMenuItem that triggers the creation of a new maze when clicked on.
+ */
 import FrontEnd.MainFrame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 public class NewMenuItem extends JMenuItem {
-    private final MainFrame mainFrame;
 
+    /**
+     * MainFrame instance to access the model and create the new maze.
+     */
+
+
+    /**
+     * Constructor for the NewMenuItem class.
+     * @param mainFrame MainFrame instance to access the model and create the new maze.
+     */
     public NewMenuItem(MainFrame mainFrame){
         super();
-        this.mainFrame = mainFrame;
+
         setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {mainFrame.getModel().newMaze();}

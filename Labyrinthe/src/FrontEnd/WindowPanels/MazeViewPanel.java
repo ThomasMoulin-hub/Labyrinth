@@ -1,5 +1,11 @@
 package FrontEnd.WindowPanels;
 
+/**
+
+ * This class represents a panel used to display a maze as a grid of hexagons.
+ * It extends JPanel and implements methods for painting and updating the maze view.
+ * It also includes listeners for mouse and keyboard input to interact with the maze.
+ */
 import BackEnd.KeyBoardController;
 import BackEnd.Model;
 import BackEnd.MouseWheelControler;
@@ -21,8 +27,10 @@ public class MazeViewPanel extends JPanel {
     private ArrayList<Hexagon> liste_hex = new ArrayList<>();
     private Model model;
 
-
-
+    /**
+     * Constructor for MazeViewPanel that sets the MainFrame and request focus for the panel
+     * @param mainFrame the MainFrame that contains the maze view panel
+     */
     public MazeViewPanel(MainFrame mainFrame) {
 
         this.mainFrame = mainFrame;
@@ -31,6 +39,11 @@ public class MazeViewPanel extends JPanel {
 
 
     }
+
+    /**
+     * Initializes the MazeViewPanel after all the components are initialized.
+     * Initializes the model, adds mouse and keyboard listeners, and sets the preferred size of the panel.
+     */
     public void initAfterAllIsInit(){
         this.model = mainFrame.getModel();
         addMouseListener( new MouseAdapter() {
@@ -65,6 +78,11 @@ public class MazeViewPanel extends JPanel {
         addMouseWheelListener(new MouseWheelControler(mainFrame));
         addKeyListener(new KeyBoardController(mainFrame));
     }
+
+    /**
+     * Paints the maze view panel by iterating through the list of hexagons and drawing them on the panel.
+     * @param g the graphics object used to paint the panel
+     */
     @Override
     public void paintComponent(Graphics g){
 
@@ -77,9 +95,18 @@ public class MazeViewPanel extends JPanel {
         }
 
     }
+
+    /**
+     * Sets the list of hexagons to be displayed in the maze view panel.
+     * @param liste the list of hexagons
+     */
     public void setListe_hex(ArrayList<Hexagon> liste){
         this.liste_hex = liste;
     }
+
+    /**
+     * Notifies the MazeViewPanel that the maze has been updated and repaints the panel with the new maze view.
+     */
     public void notifyForUpdate(){
         ArrayList<Hexagon> liste = new ArrayList<>();
         for(VertexInterface box : model.getMaze().getAllVertexes()){

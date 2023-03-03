@@ -1,5 +1,9 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
+/**
+ * This class represents a panel containing a button to trigger the display of the shortest path on the maze.
+ * The panel is added to the main frame and listens for key and mouse wheel events to control the maze display.
+ */
 import BackEnd.KeyBoardController;
 import BackEnd.MouseWheelControler;
 import FrontEnd.MainFrame;
@@ -12,6 +16,10 @@ public class BoutonsControlPanel extends JPanel {
     private MainFrame mainFrame;
     private JButton boutonPlusCourtChemin;
 
+    /**
+     * Creates a new control panel containing a button to display the shortest path.
+     * @param mainFrame the main frame of the application
+     */
     public BoutonsControlPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
 
@@ -39,6 +47,10 @@ public class BoutonsControlPanel extends JPanel {
 
 
     }
+
+    /**
+     * Initializes the control panel after all components have been initialized.
+     */
     public void initAfterAllIsInit(){
         boutonPlusCourtChemin.addMouseWheelListener(new MouseWheelControler(mainFrame));
         boutonPlusCourtChemin.addKeyListener(new KeyBoardController(mainFrame));

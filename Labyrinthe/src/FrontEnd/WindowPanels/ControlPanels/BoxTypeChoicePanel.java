@@ -1,5 +1,9 @@
 package FrontEnd.WindowPanels.ControlPanels;
 
+/**
+ * This class contains a panel with buttons to select the type of box to draw on the maze.
+ */
+
 import BackEnd.KeyBoardController;
 import BackEnd.Model;
 import BackEnd.MouseWheelControler;
@@ -12,6 +16,11 @@ import java.awt.event.ActionEvent;
 public class BoxTypeChoicePanel extends JPanel {
     private MainFrame mainFrame;
     private Model model;
+
+    /**
+     * Creates a new panel with buttons to select the type of box to draw on the maze.
+     * @param mainFrame
+     */
     public BoxTypeChoicePanel(MainFrame mainFrame){
         this.mainFrame = mainFrame;
         this.model = mainFrame.getModel();
@@ -30,6 +39,7 @@ public class BoxTypeChoicePanel extends JPanel {
         JLabel labelRouge = new JLabel("Arrivée");
         labelRouge.setFont(font);
 
+
         boutonGris.setPreferredSize(new Dimension(30,30));
         boutonBleu.setPreferredSize(new Dimension(30,30));
         boutonRouge.setPreferredSize(new Dimension(30,30));
@@ -40,6 +50,7 @@ public class BoxTypeChoicePanel extends JPanel {
         boutonGris.setBackground(Color.GRAY);
         boutonRouge.setBackground(Color.RED);
         boutonVert.setBackground(Color.GREEN);
+
 
         boutonBleu.setAction(new AbstractAction() {
             @Override
@@ -66,8 +77,6 @@ public class BoxTypeChoicePanel extends JPanel {
         });
 
 
-
-
         add(labelGris);
         add(labelBleu);
         add(labelVert);
@@ -78,12 +87,15 @@ public class BoxTypeChoicePanel extends JPanel {
         add(boutonRouge);
 
 
-
         setFocusable(true);
         requestFocusInWindow();
 
 
     }
+
+    /**
+     * Initializes the control panel after all components have been initialized.
+     */
     public void initAfterAllIsInit(){
         for(Component comp : getComponents()){
             comp.addKeyListener(new KeyBoardController(mainFrame));

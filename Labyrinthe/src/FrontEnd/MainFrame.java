@@ -1,5 +1,10 @@
 package FrontEnd;
 
+/**
+ * This class represents the main frame of the Labyrinthe application.
+ * It extends JFrame and implements ChangeListener.
+ * The class contains the window panel, model and menu bar for the application.
+ */
 import BackEnd.KeyBoardController;
 import BackEnd.Model;
 import FrontEnd.MenuBar.MenuBar;
@@ -16,9 +21,16 @@ public class MainFrame extends JFrame implements ChangeListener {
 
     private final WindowPanel windowPanel;
     private Model model = new Model(this);
-    //TODO regarder tous les trucs qui peuvent etre final
 
-
+    /**
+     * Constructor for the MainFrame class.
+     * Initializes the window panel, model, and menu bar.
+     * Sets the default close operation for the frame and adds a window listener to quit the model when closing.
+     * Adds a key listener for the keyboard controller.
+     * Sets the minimum size of the frame and packs it.
+     * Sets the frame to extended state MAXIMIZED_BOTH.
+     * Sets the frame visible and initializes the window panel and model.
+     */
     public MainFrame(){
         super("Labyrinthe");
         setContentPane(windowPanel = new WindowPanel(this));
@@ -51,10 +63,20 @@ public class MainFrame extends JFrame implements ChangeListener {
 
     }
 
+    /**
+     * Returns the model for the application.
+     * @return The model for the application.
+     */
     public Model getModel() {
         return model;
     }
 
+    /**
+     * Overrides the stateChanged method from ChangeListener.
+     * Sets the title of the frame to include the name and size of the maze if it exists.
+     * Notifies the window panel for update.
+     * @param e The ChangeEvent.
+     */
     @Override
     public void stateChanged(ChangeEvent e) {
 

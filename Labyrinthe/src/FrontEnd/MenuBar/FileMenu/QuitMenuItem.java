@@ -1,5 +1,8 @@
 package FrontEnd.MenuBar.FileMenu;
 
+/**
+ * QuitMenuItem is a JMenuItem used to quit the application
+ */
 import FrontEnd.MainFrame;
 
 import javax.swing.*;
@@ -9,7 +12,12 @@ import java.awt.event.ActionEvent;
 
 
 public class QuitMenuItem extends JMenuItem {
-    private final MainFrame mainFrame;
+
+
+    /**
+     * Constructor for QuitMenuItem
+     * @param mainFrame the main frame of the application
+     */
      public QuitMenuItem(MainFrame mainFrame){
          super();
          setAction(new AbstractAction() {
@@ -19,7 +27,6 @@ public class QuitMenuItem extends JMenuItem {
              }
          });
          setText("Quitter");
-         this.mainFrame = mainFrame;
      }
 
 
