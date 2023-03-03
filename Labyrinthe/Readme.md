@@ -1,5 +1,3 @@
-Des d'interfaces ne servent pas car ce sont des objets qui existent déjà (ex : HashMap)
-
 Fonctionalités du logiciel :
 - créer un nouveau labyrinthe vierge
 - changer un labyrithe depuis un fichier correctement formaté
@@ -32,4 +30,4 @@ Fonctionalités du logiciel :
 Ce qu'il reste à implémenter :
 - pouvoir changer la taille d'un labyrinthe
 - pouvoir changer le nom d'un labirynthe (et donc le nom du fichier)
-- pouvoir déplacer des parties du labyrinthe en selectionnant avec la souris et en faisant glisser
+- pouvoir déplacer des parties du labyrinthe en les selectionnant avec la souris et en les faisant glisser
